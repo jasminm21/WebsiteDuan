@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,7 +37,7 @@ public class HomeController {
 	public static final String uploadingdirAvatar = System.getProperty("user.dir")
 			+ "/src/main/resources/static/avatars/";
 
-//	DELET FILE
+//	DELETE FILE
 	public void deleteFile(String source) throws IOException {
 		File file = new File(source);
 //          kiem tra nếu file tồn tại thì xóa
@@ -50,7 +49,7 @@ public class HomeController {
 	}
 
 	@Autowired
-	KhoahocRepository khoahocRSP;
+	private KhoahocRepository khoahocRSP;
 
 	@RequestMapping("/*")
 	public String error() {
@@ -142,12 +141,12 @@ public class HomeController {
 
 	@RequestMapping(value = "/update-profile_pass", method = RequestMethod.POST)
 	public String updateProfile_passs(HttpServletRequest request1, Model model1,
-			@ModelAttribute("updateProfile_pass") User user, @RequestParam(value = "password") String pass) {
+			@ModelAttribute("updateProfile_pass") User user, @RequestParam(value = "password") String password) {
 		try {
 			user.setEnabled(1);
 			// mã hóa password
-			pass = bCrypt.encode(user.getPassword());
-			user.setPassword(pass);
+			password = bCrypt.encode(user.getPassword());
+			user.setPassword(password);
 			userRSP.save(user);
 			model1.addAttribute("message", "Đổi mật khẩu thành công!");
 			return "home/changepass_user";
@@ -325,12 +324,12 @@ public class HomeController {
 	@Autowired
 	private BCryptPasswordEncoder bCrypt;
 	@Autowired
-	UserRepository userRSP;
+	private UserRepository userRSP;
 	@Autowired
 //	QuyenRepository quyenRSP;
-	QuyenRepository roleRSP;
+	private QuyenRepository roleRSP;
 	@Autowired
-	UserroleRepository userroleRSP;
+	private UserroleRepository userroleRSP;
 
 	@RequestMapping(value = "addUser", method = RequestMethod.GET)
 	public String addUser(HttpServletRequest request, Model model) {
